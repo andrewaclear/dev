@@ -2,9 +2,9 @@
 # myrc #
 ########
 
-source $WORKING_DIR/andrew-notes/term/ohmyzshrc.sh
+source $WORKING_DIR/dev/term/ohmyzshrc.sh
 # actually need to set up oh-my-posh last to override any previous theming configs
-source $WORKING_DIR/andrew-notes/term/ohmyposhrc.sh
+source $WORKING_DIR/dev/term/ohmyposhrc.sh
 
 # set terminal width:
 # export COLUMNS=2000
@@ -143,12 +143,12 @@ function devbuild() {
 }
 
 function testapi() {
-  # $WORKING_DIR/andrew-notes/test-api.sh
-  python3 $WORKING_DIR/andrew-notes/test-api.py
+  # $WORKING_DIR/dev/test-api.sh
+  python3 $WORKING_DIR/dev/test-api.py
 }
 
 function testapione() {
-  $WORKING_DIR/andrew-notes/test-api-one.sh
+  $WORKING_DIR/dev/test-api-one.sh
 }
 
 function charging() {
