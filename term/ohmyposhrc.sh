@@ -1,4 +1,4 @@
-export POSH_THEME=$WORKING_DIR/andrew-notes/term/my-term.json
+export POSH_THEME=$WORKING_DIR/dev/term/my-term.json
 export POSH_SHELL_VERSION=$ZSH_VERSION
 export POSH_PID=$$
 export POWERLINE_COMMAND="oh-my-posh"
