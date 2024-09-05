@@ -1,0 +1,55 @@
+{{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT)) }}
+  <
+    {{ if eq .Code 0 }}
+      p:c-badge-return-success
+    {{ else if or (eq .Code 1) (eq .Code 130) }}
+      p:c-badge-return-fail
+    {{ else }}
+      p:c-badge-return-custom
+    {{ end }}
+  >
+  \uE0B6
+  </>
+  <
+    {{ if eq .Code 0 }}
+      p:c-badge-text-success,p:c-badge-return-success
+    {{ else if or (eq .Code 1) (eq .Code 130) }}
+      p:c-badge-text-fail,p:c-badge-return-fail
+    {{ else }}
+      p:c-badge-text-custom,p:c-badge-return-custom
+    {{ end }}
+  >
+  {{ if .Segments.Executiontime.Ms }}
+    {{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT_EXEC_TIME)) }}
+      \u23F1 {{ .Segments.Executiontime.FormattedMs }} 
+      \uE621 
+    {{ end }}
+  {{ end }}
+  <b>
+  {{ if eq .Code 0 }}
+    OK
+  {{ else if eq .Code 1 }}
+    FAIL
+  {{ else if eq .Code 130 }}
+    TERM
+  {{ else }}
+    Code
+  {{ end }} 
+  ({{ .Code }})
+  </b>
+  </>
+  <
+    {{ if eq .Code 0 }}
+      p:c-badge-return-success
+    {{ else if or (eq .Code 1) (eq .Code 130) }}
+      p:c-badge-return-fail
+    {{ else }}
+      p:c-badge-return-custom
+    {{ end }}
+  >
+  \uE0B4
+  </> 
+  <p:c-user-text>
+  \n\n\ue285
+  </> 
+{{ end }}

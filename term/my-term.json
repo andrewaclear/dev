@@ -1,0 +1,323 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "style": "plain",
+          "template": "{{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT)) }}<{{ if eq .Code 0 }}p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-return-fail{{ else }}p:c-badge-return-custom{{ end }}>\uE0B6</><{{ if eq .Code 0 }}p:c-badge-text-success,p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-text-fail,p:c-badge-return-fail{{ else }}p:c-badge-text-custom,p:c-badge-return-custom{{ end }}>{{ end }}",
+          "type": "text"
+        },
+        {
+          "background": "p:c-badge-return-custom",
+          "background_templates": [
+            "{{ if eq .Code 0 }}p:c-badge-return-success{{ end }}",
+            "{{ if or (eq .Code 1) (eq .Code 130) }}p:c-badge-return-fail{{ end }}"
+          ],
+          "foreground": "p:c-badge-text-custom",
+          "foreground_templates": [
+            "{{ if eq .Code 0 }}p:c-badge-text-success{{ end }}",
+            "{{ if or (eq .Code 1) (eq .Code 130) }}p:c-badge-text-fail{{ end }}"
+          ],
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "{{ if .Segments.Executiontime.Ms }}{{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT_EXEC_TIME)) }}\u23F1 {{ .FormattedMs }} \uE621 {{ end }}{{ end }}",
+          "type": "executiontime"
+        },
+        {
+          "style": "plain",
+          "template": "{{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT)) }}<{{ if eq .Code 0 }}p:c-badge-text-success,p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-text-fail,p:c-badge-return-fail{{ else }}p:c-badge-text-custom,p:c-badge-return-custom{{ end }}>{{ if eq .Code 0 }}OK{{ else if eq .Code 1 }}FAIL{{ else if eq .Code 130 }}TERM{{ else }}Code{{ end }} ({{ .Code }})</><{{ if eq .Code 0 }}p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-return-fail{{ else }}p:c-badge-return-custom{{ end }}>\uE0B4</> {{ end }}",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "background": "p:c-user-back",
+          "foreground": "p:c-user-text",
+          "leading_diamond": "\n\ue0b6",
+          "style": "diamond",
+          "template": "{{ .Icon }} {{ .UserName }} ",
+          "type": "os"
+        },
+        {
+          "type": "command",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b4",
+          "foreground": "p:c-badge-text-custom",
+          "background": "p:c-badge-return-custom",
+          "template": " \ue284 {{if .Output}}{{.Output}}{{end}} ",
+          "properties": {
+            "shell": "bash",
+            "command": "if T=$(oc config current-context 2> /dev/null); then printf $(echo $T | cut -d '/' -f 1):$(echo $T | cut -d '/' -f 2 | cut -d '-' -f 2); fi"
+          }
+        },
+        {
+          "background": "#DA627D",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "folder_icon": "\uf115",
+            "folder_separator_icon": "/",
+            "home_icon": "\ueb06 ",
+            "style": "full"
+          },
+          "style": "powerline",
+          "template": " \uf07b \uea9c {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "background": "p:c-git-normal",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:c-git-staging{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:c-git-ahead-behind{{ end }}",
+            "{{ if gt .Ahead 0 }}p:c-git-ahead{{ end }}",
+            "{{ if gt .Behind 0 }}p:c-git-behind{{ end }}"
+          ],
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "branch_icon": " <#fff>\ue0a0 </>",
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "style": "powerline",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "type": "git"
+        },
+        {
+          "background": "p:c-project-node",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "type": "node"
+        },
+        {
+          "background": "p:c-project-go",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue626 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "go"
+        },
+        {
+          "background": "p:c-project-julia",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue624 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "julia"
+        },
+        {
+          "background": "p:c-project-rust",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "rust"
+        },
+        {
+          "background": "p:c-project-flutter",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "flutter"
+        },
+        {
+          "background": "p:c-project-lua",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "lua"
+        },
+        {
+          "background": "p:c-project-python",
+          "foreground": "#111111",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "display_mode": "files",
+            "fetch_virtual_env": false
+          },
+          "style": "powerline",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "python"
+        },
+        {
+          "background": "p:c-project-ruby",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": true
+          },
+          "style": "powerline",
+          "template": " \ue791 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "ruby"
+        },
+        {
+          "background": "p:c-project-azfunc",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": false
+          },
+          "style": "powerline",
+          "template": " \uf0e7{{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "type": "azfunc"
+        },
+        {
+          "background_templates": [
+            "{{if contains \"default\" .Profile}}#FFA400{{end}}",
+            "{{if contains \"jan\" .Profile}}#f1184c{{end}}"
+          ],
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b4",
+          "properties": {
+            "display_default": false
+          },
+          "style": "powerline",
+          "template": " \ue7ad {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }} ",
+          "type": "aws"
+        },
+        {
+          "background": "p:c-project-root",
+          "foreground": "#111111",
+          "powerline_symbol": "\ue0b4",
+          "style": "powerline",
+          "template": " \uf0ad ",
+          "type": "root"
+        },
+        {
+          "foreground_templates": [
+            "{{ if regexMatch \"(^(0[6-9])|(1[0-1])):\" (.CurrentDate | date \"15:03\") }}p:c-date-time-morning{{ end }}",
+            "{{ if regexMatch (\"(^1[2-4]):\") (.CurrentDate | date \"15:03\") }}p:c-date-time-noon{{ end }}",
+            "{{ if regexMatch (\"(^1[5-7]):\") (.CurrentDate | date \"15:03\") }}p:c-date-time-afternoon{{ end }}",
+            "{{ if regexMatch \"(^(1[8-9])|(2[0-3])):\" (.CurrentDate | date \"15:03\") }}p:c-date-time-evening{{ end }}",
+            "{{ if regexMatch \"^(0[0-5]):\" (.CurrentDate | date \"15:03\") }}p:c-date-time-night{{ end }}"
+          ],
+          "properties": {
+            "time_format": "3:04 PM"
+          },
+          "style": "diamond",
+          "powerline_symbol": "\ue0b4",
+          "template": " \uf017 {{ .CurrentDate | date .Format }} ",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": []
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "p:c-user-text",
+          "style": "plain",
+          "template": "\ue285",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "palette": {
+    "c-user-back": "#002954",
+    "c-user-text": "#2e93ff",
+    "c-badge-folder": "#FFD770",
+    "c-badge-text-fail": "#f53572",
+    "c-badge-text-success": "#00d188",
+    "c-badge-text-custom": "#E7B9FF",
+    "c-badge-white": "#FAFAFA",
+    "c-badge-return-custom": "#3b005a",
+    "c-badge-return-fail": "#430000",
+    "c-badge-return-success": "#003543",
+    "c-battery-15-less": "#FF8A80",
+    "c-battery-30-less": "#FFD180",
+    "c-battery-45-less": "#FFE57F",
+    "c-battery-55-less": "#FFFF8D",
+    "c-battery-70-less": "#F4FF81",
+    "c-battery-90-less": "#B9F6CA",
+    "c-battery-100-less": "#CCFF90",
+    "c-battery-state-error": "#FF867F",
+    "c-date-time-morning": "#63aea9",
+    "c-date-time-noon": "#6bb0bf",
+    "c-date-time-afternoon": "#6790bb",
+    "c-date-time-evening": "#7285be",
+    "c-date-time-night": "#7779b1",
+    "c-exec-fast": "#C6FF00",
+    "c-exec-normal": "#FFFF00",
+    "c-exec-slow": "#FFD180",
+    "c-exec-slower": "#FF867F",
+    "c-git-ahead": "#bbaa84",
+    "c-git-behind": "#7097ad",
+    "c-git-ahead-behind": "#b88cb5",
+    "c-git-normal": "#da8a9b",
+    "c-git-staging": "#dc9380",
+    "c-git-staging-working": "#FFB2FF",
+    "c-git-upstream-gone": "#FF867F",
+    "c-git-working": "#84FFFF",
+    "c-project-generic-error": "#FF867F",
+    "c-project-crystal": "#FFFFFF",
+    "c-project-root": "#e8e865",
+    "c-project-kubectl": "#6da597",
+    "c-project-flutter": "#69b0e3",
+    "c-project-lua": "#989cc1",
+    "c-project-azfunc": "#ac84cc",
+    "c-project-node": "#68a873",
+    "c-project-julia": "#6578b8",
+    "c-project-go": "#4a9ece",
+    "c-project-rust": "#9d8d79",
+    "c-project-ruby": "#d4626d",
+    "c-project-python": "#ead675",
+    "c-secondary-ellipsis": "#FFFF8D",
+    "c-shell-state-ssh-active": "#BAFFFF",
+    "c-shell-state-root-active": "#9FFFE0",
+    "c-shell-state-root-ssh-active": "#FFB2FF",
+    "c-wakatime-undertime": "#A7FFEB",
+    "c-wakatime-warm-up": "#FFFFB3",
+    "c-wakatime-working": "#FFD180",
+    "c-wakatime-quota": "#FFD0B0",
+    "c-wakatime-overtime": "#FF8A80"
+  },
+  "console_title_template": "{{ .Folder }}",
+  "transient_prompt": {
+    "template": "{{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT)) }}<{{ if eq .Code 0 }}p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-return-fail{{ else }}p:c-badge-return-custom{{ end }}>\uE0B6</><{{ if eq .Code 0 }}p:c-badge-text-success,p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-text-fail,p:c-badge-return-fail{{ else }}p:c-badge-text-custom,p:c-badge-return-custom{{ end }}>{{ if .Segments.Executiontime.Ms }}{{ if eq \"False\" (title (default \"False\" .Env.DISABLE_SEGMENT_TRANSIENT_EXEC_TIME)) }}\u23F1 {{ .Segments.Executiontime.FormattedMs }} \uE621 {{ end }}{{ end }}{{ if eq .Code 0 }}OK{{ else if eq .Code 1 }}FAIL{{ else if eq .Code 130 }}TERM{{ else }}Code{{ end }} ({{ .Code }})</><{{ if eq .Code 0 }}p:c-badge-return-success{{ else if or (eq .Code 1) (eq .Code 130) }}p:c-badge-return-fail{{ else }}p:c-badge-return-custom{{ end }}>\uE0B4</> <p:c-user-text>\n\n\uf017 {{ .Segments.CurrentDate | date \"3:04 PM\" }}\n\ue285</> {{ end }}"
+  },
+  "version": 2
+}
