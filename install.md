@@ -30,11 +30,11 @@ What to install on Mac to get set up for development.
   - install powerline font: `brew tap homebrew/cask-fonts && brew install --cask font-hack-nerd-font`
     - set terminal font to "NAME Nerd Font" in VScode, where NAME is the font name you chose (in my case "Hack")
   - set your working code directory with wherever you have cloned this repo: `echo "export WORKING_DIR=~/code" >> ~/.zshrc`
-  - set myrc config: `echo "source $WORKING_DIR/andrew-notes/rc/myrc.sh" >> ~/.zshrc`
+  - set myrc config: `echo "source $WORKING_DIR/dev/rc/myrc.sh" >> ~/.zshrc`
   - if you want (not as necessary):
     - `brew install zsh-autocomplete`
       - `echo "source \$HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" >> ~/.zshrc`
-  - set myrc config: `echo "source $WORKING_DIR/andrew-notes/term/myrc.sh" >> ~/.zshrc`
+  - set myrc config: `echo "source $WORKING_DIR/dev/term/myrc.sh" >> ~/.zshrc`
 
 # Settings
 
